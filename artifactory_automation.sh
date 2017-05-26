@@ -53,7 +53,7 @@ sleep 5
 # second task, create the username
 CREATE_USER_URL="$URL/api/security/users/$CUSTOMER_USERNAME"
 curl -u $USERNAME:$PASSWORD -X PUT $CREATE_USER_URL -H "Content-Type: application/json" -d '{"email":"'"$CUSTOMER_EMAIL"'","password":"'"$CUSTOMER_PASSWORD"'"}'
-echo "Created a user named '$USERNAME'"
+echo "Created a user named '$CUSTOMER_USERNAME'"
 sleep 5
 
 # third task, create a read only permission allowing user access to repository
