@@ -47,11 +47,16 @@ fi
 
 # Otherwise create it and carry on
 curl -u $USERNAME:$PASSWORD -X PUT $CREATE_REPO_URL -H "Content-Type: application/json" -d '{"rclass":"local","packageType": "generic"}'
-
+echo "Created a Repo called '$REPOSITORY_NAME'"
 # second task, create the username
 CREATE_USER_URL="$URL/api/security/users/$CUSTOMER_USERNAME"
 curl -u $USERNAME:$PASSWORD -X PUT $CREATE_USER_URL -H "Content-Type: application/json" -d '{"email":"'"$CUSTOMER_EMAIL"'","password":"'"$CUSTOMER_PASSWORD"'"}'
+echo "Created a user named '$USERNAME'"
 
 # third task, create a read only permission allowing user access to repository
 CREATE_PERMISSION_URL="$URL/api/security/permissions/${REPOSITORY_NAME}_permission"
 curl -u $USERNAME:$PASSWORD -X PUT $CREATE_PERMISSION_URL -H "Content-Type: application/json" -d '{"name":"'"$REPOSITORY_NAME"'_permission","repositories": ["'"$REPOSITORY_NAME"'"], "principals": {"users" :{"'"$CUSTOMER_USERNAME"'": ["r"]},"groups":{"customer_accounts":["r"]}}}'
+echo "Created a permission granting READ ONLY access to REPO='$REPOSITORY_NAME' for user='$USERNAME'"
+echo ""
+echo ""
+echo "Artifactory Automated customer onboarding complete!!!"
